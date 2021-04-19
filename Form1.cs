@@ -35,7 +35,7 @@ namespace otherSol
 
             if (anywhere.connection.State == ConnectionState.Open)
             {
-                combo_app.Items.Clear();
+                combo_app.Items.Clear(); 
                 APP();
             }           
         }
