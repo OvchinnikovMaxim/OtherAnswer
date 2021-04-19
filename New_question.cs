@@ -180,7 +180,7 @@ namespace otherSol
                     "'" + t_check + "')";
 
             string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT name FROM service.dbo._faq_questions WHERE name ='" + question + "'";
+                        "SELECT question FROM service.dbo._faq_questions WHERE question ='" + question + "'";
 
             try
             {
