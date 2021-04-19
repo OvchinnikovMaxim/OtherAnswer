@@ -180,12 +180,12 @@ namespace otherSol
 SELECT qt.tag_id FROM service.dbo._faq_questions q
 JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id
 JOIN service.dbo._faq_tags t ON qt.tag_id = t.id
-WHERE t.name = '"+i.ToString()+"' and q.question = '" + list_questions.SelectedItem.ToString() + "')"+
+WHERE t.name = '"+i.ToString()+"' and q.question = '" + question + "')"+
 @"BEGIN
      SELECT qt.tag_id FROM service.dbo._faq_questions q
      JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id
      JOIN service.dbo._faq_tags t ON qt.tag_id = t.id
-     WHERE t.name = '"+i.ToString()+"' and q.question = '" + list_questions.SelectedItem.ToString() + "'"+
+     WHERE t.name = '"+i.ToString()+"' and q.question = '" + question + "'"+
 @"END
 ELSE
 BEGIN
@@ -197,13 +197,13 @@ END";
                     string t_name= "SELECT t.name FROM service.dbo._faq_questions q " +
                         "JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id " +
                         "JOIN service.dbo._faq_tags t ON qt.tag_id = t.id " +
-                        "WHERE t.name = '"+i.ToString()+"' and q.question = '" + list_questions.SelectedItem.ToString() + "'";
+                        "WHERE t.name = '"+i.ToString()+"' and q.question = '" + question + "'";//list_questions.SelectedItem.ToString()
 
                     string t_active = "update service.dbo._faq_questions_tags SET del=0 WHERE id in (" +
                         "SELECT qt.id FROM service.dbo._faq_questions q " +
                         "JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id " +
                         "JOIN service.dbo._faq_tags t ON qt.tag_id = t.id " +
-                        "WHERE t.name = '" + i.ToString() + "' and q.question = '" + list_questions.SelectedItem.ToString() + "')";
+                        "WHERE t.name = '" + i.ToString() + "' and q.question = '" + question + "')";
 
                     SqlCommand sql_t_active = new SqlCommand(t_active, anywhere.connection);
                     sql_t_active.ExecuteNonQuery();                    
@@ -212,7 +212,7 @@ END";
                 {
                     string add_tag = "DECLARE @question_id INT;" +
                             "DECLARE @tag_id INT;" +
-                            "SET @question_id = (SELECT id FROM service.dbo._faq_questions WHERE question = '" + list_questions.SelectedItem.ToString() + "');" +
+                            "SET @question_id = (SELECT id FROM service.dbo._faq_questions WHERE question = '" + question + "');" +
                             "SET @tag_id = (SELECT id FROM service.dbo._faq_tags WHERE name = '" + i.ToString() + "');" +
                             "INSERT INTO service.dbo._faq_questions_tags(question_id, tag_id, del) VALUES(@question_id, @tag_id, 0)";
 
