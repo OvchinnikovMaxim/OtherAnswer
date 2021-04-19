@@ -47,7 +47,7 @@ namespace otherSol
             string questons = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;" +
                 "SELECT DISTINCT q.question FROM service.dbo._faq_questions q " +
                 "JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id " +
-                "JOIN service.dbo._faq_tags t ON qt.tag_id = t.id WHERE qt.del=0 and q.app = " + (combo_app.SelectedIndex + 1);
+                "JOIN service.dbo._faq_tags t ON qt.tag_id = t.id WHERE qt.del=0 and q.app = (SELECT id FROM service.dbo._faq_app WHERE name = '" + combo_app.SelectedItem.ToString() + "')" ;
 
             anywhere.adap_dat(app);
 
