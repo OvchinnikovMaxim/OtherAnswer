@@ -80,7 +80,7 @@ namespace otherSol
         private void APP()
         {
             string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT name FROM service.dbo._faq_app";
+                        "SELECT name FROM service.dbo._faq_app ORDER BY name";
 
             anywhere.adap_dat(query);            
 
@@ -97,7 +97,7 @@ namespace otherSol
                 "SELECT DISTINCT t.name FROM service.dbo._faq_questions q " +
                 "JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id " +
                 "JOIN service.dbo._faq_tags t ON qt.tag_id = t.id " +
-                "WHERE qt.del=0 and q.app = (SELECT id FROM service.dbo._faq_app WHERE name = '" + combo_app.SelectedItem.ToString() + "')";
+                "WHERE qt.del=0 and q.app = (SELECT id FROM service.dbo._faq_app WHERE name = '" + combo_app.SelectedItem.ToString() + "') ORDER BY name";
 
             string questons = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;" +
                 "SELECT DISTINCT q.question FROM service.dbo._faq_questions q " +

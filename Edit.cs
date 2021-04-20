@@ -29,7 +29,7 @@ namespace otherSol
         private void APP()
         {
             string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT name FROM service.dbo._faq_app";
+                        "SELECT name FROM service.dbo._faq_app ORDER BY name";
 
             anywhere.adap_dat(query);
 
@@ -120,7 +120,7 @@ namespace otherSol
             list_edit_tags.Items.Clear();
 
             string tags_all = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT name FROM service.dbo._faq_tags";
+                        "SELECT name FROM service.dbo._faq_tags ORDER BY name";
 
             anywhere.adap_dat(tags_all);
 
@@ -198,7 +198,7 @@ END";
                         "JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id " +
                         "JOIN service.dbo._faq_tags t ON qt.tag_id = t.id " +
                         "WHERE t.name = '"+i.ToString()+"' and q.question = '" + question + "'";//list_questions.SelectedItem.ToString()
-
+                    
                     string t_active = "update service.dbo._faq_questions_tags SET del=0 WHERE id in (" +
                         "SELECT qt.id FROM service.dbo._faq_questions q " +
                         "JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id " +

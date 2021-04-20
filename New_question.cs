@@ -37,7 +37,7 @@ namespace otherSol
         private void APP()
         {
             string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT name FROM service.dbo._faq_app";
+                        "SELECT name FROM service.dbo._faq_app ORDER BY name";
 
             anywhere.adap_dat(query);
 
@@ -48,7 +48,7 @@ namespace otherSol
         private void Tags()
         {
             string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT name FROM service.dbo._faq_tags";
+                        "SELECT name FROM service.dbo._faq_tags ORDER BY name";
 
             anywhere.adap_dat(query);
 
