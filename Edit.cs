@@ -91,52 +91,55 @@ namespace otherSol
 
         private void list_questions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT question, answer, checking FROM service.dbo._faq_questions WHERE question = '" + list_questions.SelectedItem.ToString() + "'";
+            if (list_questions.SelectedIndex != -1)
+            {
+                string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
+                       "SELECT question, answer, checking FROM service.dbo._faq_questions WHERE question = '" + list_questions.SelectedItem.ToString() + "'";
 
-            anywhere.adap_dat(query);
+                anywhere.adap_dat(query);
 
-            text_edit_question.Text = anywhere.data.Tables[0].Rows[0][0].ToString();
-            rich_edit_answer.Text = anywhere.data.Tables[0].Rows[0][1].ToString();
-            rich_edit_check.Text = anywhere.data.Tables[0].Rows[0][2].ToString();
+                text_edit_question.Text = anywhere.data.Tables[0].Rows[0][0].ToString();
+                rich_edit_answer.Text = anywhere.data.Tables[0].Rows[0][1].ToString();
+                rich_edit_check.Text = anywhere.data.Tables[0].Rows[0][2].ToString();
 
-            string apps = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT name FROM service.dbo._faq_app";
-            
-            list_edit_app.Items.Clear();
+                string apps = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
+                            "SELECT name FROM service.dbo._faq_app";
 
-            anywhere.adap_dat(apps);
+                list_edit_app.Items.Clear();
 
-            for (int i = 0; i < anywhere.data.Tables[0].Rows.Count; i++)
-                list_edit_app.Items.Add(anywhere.data.Tables[0].Rows[i][0].ToString());
+                anywhere.adap_dat(apps);
 
-            string app = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;" +
-                "SELECT name FROM service.dbo._faq_app a " +
-                "JOIN service.dbo._faq_questions q ON a.id = q.app " +
-                "WHERE q.question = '" + list_questions.SelectedItem.ToString() + "'";
+                for (int i = 0; i < anywhere.data.Tables[0].Rows.Count; i++)
+                    list_edit_app.Items.Add(anywhere.data.Tables[0].Rows[i][0].ToString());
 
-            list_edit_app.SelectedItem = new SqlCommand(app, anywhere.connection).ExecuteScalar().ToString();
+                string app = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;" +
+                    "SELECT name FROM service.dbo._faq_app a " +
+                    "JOIN service.dbo._faq_questions q ON a.id = q.app " +
+                    "WHERE q.question = '" + list_questions.SelectedItem.ToString() + "'";
 
-            list_edit_tags.Items.Clear();
+                list_edit_app.SelectedItem = new SqlCommand(app, anywhere.connection).ExecuteScalar().ToString();
 
-            string tags_all = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                        "SELECT name FROM service.dbo._faq_tags ORDER BY name";
+                list_edit_tags.Items.Clear();
 
-            anywhere.adap_dat(tags_all);
+                string tags_all = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
+                            "SELECT name FROM service.dbo._faq_tags ORDER BY name";
 
-            for (int i = 0; i < anywhere.data.Tables[0].Rows.Count; i++)
-                list_edit_tags.Items.Add(anywhere.data.Tables[0].Rows[i][0].ToString());
+                anywhere.adap_dat(tags_all);
 
-            string tags = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
-                "SELECT DISTINCT t.name FROM service.dbo._faq_questions q " +
-                "JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id " +
-                "JOIN service.dbo._faq_tags t ON qt.tag_id = t.id " +
-                "WHERE qt.del=0 and q.question = '" + list_questions.SelectedItem.ToString() + "'";
+                for (int i = 0; i < anywhere.data.Tables[0].Rows.Count; i++)
+                    list_edit_tags.Items.Add(anywhere.data.Tables[0].Rows[i][0].ToString());
 
-            anywhere.adap_dat(tags);
+                string tags = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
+                    "SELECT DISTINCT t.name FROM service.dbo._faq_questions q " +
+                    "JOIN service.dbo._faq_questions_tags qt ON q.id = qt.question_id " +
+                    "JOIN service.dbo._faq_tags t ON qt.tag_id = t.id " +
+                    "WHERE qt.del=0 and q.question = '" + list_questions.SelectedItem.ToString() + "'";
 
-            for (int i = 0; i < anywhere.data.Tables[0].Rows.Count; i++)
-                list_edit_tags.SelectedItem = anywhere.data.Tables[0].Rows[i][0].ToString();
+                anywhere.adap_dat(tags);
+
+                for (int i = 0; i < anywhere.data.Tables[0].Rows.Count; i++)
+                    list_edit_tags.SelectedItem = anywhere.data.Tables[0].Rows[i][0].ToString();
+            }
         }
 
         private void btn_edit_question_Click(object sender, EventArgs e)
