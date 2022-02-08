@@ -163,19 +163,26 @@ namespace otherSol
 
         private void list_questions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string answer = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
+
+            if (list_questions.SelectedIndex != -1)
+            {
+                string answer = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
                         "SELECT answer FROM service.dbo._faq_questions WHERE question = '" + list_questions.SelectedItem.ToString() + "'";
 
-            string check = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
+                string check = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
                         "SELECT checking FROM service.dbo._faq_questions WHERE question = '" + list_questions.SelectedItem.ToString() + "'";
-            try
-            {
-                richText_answer.Text = new SqlCommand(answer, anywhere.connection).ExecuteScalar().ToString();
-                richText_check.Text = new SqlCommand(check, anywhere.connection).ExecuteScalar().ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+
+                try
+                {
+                    richText_answer.Text = new SqlCommand(answer, anywhere.connection).ExecuteScalar().ToString();
+                    richText_check.Text = new SqlCommand(check, anywhere.connection).ExecuteScalar().ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
