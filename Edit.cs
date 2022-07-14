@@ -62,12 +62,10 @@ namespace otherSol
 
         private void btn_edit_app_Click(object sender, EventArgs e)
         {
-            string app_name = text_app_name.Text;
-            app_name.Replace("'", "`");
+            string app_name = text_app_name.Text.Replace("'", "`");
             app_name = app_name.ToLower();
 
-            string app_caption = text_edit_caption.Text;
-            app_caption.Replace("'", "`");
+            string app_caption = text_edit_caption.Text.Replace("'", "`");
 
             string query = "UPDATE  service.dbo._faq_app  SET name='" + app_name + "', caption='" + app_caption + "' " +
                 "WHERE id =(SELECT id FROM service.dbo._faq_app WHERE name = '" + combo_app.SelectedItem.ToString() + "')";
@@ -144,15 +142,12 @@ namespace otherSol
 
         private void btn_edit_question_Click(object sender, EventArgs e)
         {
-            string question = text_edit_question.Text;
-            question.Replace("'", "`");
-
-            string answer = rich_edit_answer.Text;
-            answer.Replace("'", "`");
-
-            string t_check = rich_edit_check.Text;
-            t_check.Replace("'", "`");
-
+            string question = text_edit_question.Text.Replace("'", "`");
+            
+            string answer = rich_edit_answer.Text.Replace("'", "`");
+            
+            string t_check = rich_edit_check.Text.Replace("'", "`");
+            
             string app_question = "SELECT id FROM service.dbo._faq_app WHERE name = '" + list_edit_app.SelectedItem.ToString() + "'";
 
             int app = (int)new SqlCommand(app_question, anywhere.connection).ExecuteScalar();

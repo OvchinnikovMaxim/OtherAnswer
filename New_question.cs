@@ -68,8 +68,7 @@ namespace otherSol
 
         private void btn_new_app_Click(object sender, EventArgs e)
         {
-            string new_app = text_new_app.Text;
-            new_app.Replace("'", "`");
+            string new_app = text_new_app.Text.Replace("'", "`");
             new_app = new_app.ToLower();
 
             string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
@@ -98,8 +97,7 @@ namespace otherSol
 
         private void btn_new_tag_Click(object sender, EventArgs e)
         {
-            string new_tag = text_new_tag.Text;
-            new_tag.Replace("'", "`");
+            string new_tag = text_new_tag.Text.Replace("'", "`");
             new_tag = new_tag.ToLower();
 
             string query = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED; " +
@@ -164,14 +162,11 @@ namespace otherSol
 
         private void btn_new_question_Click(object sender, EventArgs e)
         {
-            string question = text_question.Text;
-            question.Replace("'", "`");
+            string question = text_question.Text.Replace("'", "`");
 
-            string answer = richText_answer.Text;
-            answer.Replace("'", "`");
+            string answer = richText_answer.Text.Replace("'", "`");
 
-            string t_check = richText_check.Text;
-            t_check.Replace("'", "`");
+            string t_check = richText_check.Text.Replace("'", "`");
 
             string add_question = "INSERT INTO service.dbo._faq_questions (app, question, answer, checking) " +
                     "VALUES((SELECT id FROM service.dbo._faq_app WHERE name = '" + APPS + "'), " +
